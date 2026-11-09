@@ -1,0 +1,40 @@
+{
+  "name": "live-match-data-aggregator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Live Sports Match Data Aggregator \u2013 ingests cricket match data from two independent providers and exposes unified client-facing APIs",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-migrations.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "tsx src/server.ts",
+    "db:migrate": "tsx src/database/migrations/run.ts",
+    "db:seed": "tsx src/database/seed.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "mock:provider-b": "tsx scripts/run-provider-b.ts",
+    "mock:provider-a": "tsx scripts/run-provider-a.ts",
+    "typecheck:tests": "tsc --noEmit -p tsconfig.test.json"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.4.1",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "pino": "^9.6.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.15.30",
+    "@types/supertest": "^6.0.3",
+    "supertest": "^7.1.4",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.1"
+  }
+}

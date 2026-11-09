@@ -1,0 +1,28 @@
+services:
+  provider-b:
+    build: .
+    command: ["npm", "run", "mock:provider-b"]
+    environment:
+      MOCK_PROVIDER_B_PORT: "4001"
+    expose:
+      - "4001"
+
+  app:
+    build: .
+    depends_on:
+      - provider-b
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      DB_PATH: /app/data/matches.sqlite
+      PROVIDER_A_WEBHOOK_URL: http://app:3000/webhooks/provider-a
+      PROVIDER_B_BASE_URL: http://provider-b:4001
+      POLL_INTERVAL_MS: "5000"
+      PRIMARY_PROVIDER: provider-a
+    volumes:
+      - fancode-data:/app/data
+
+volumes:
+  fancode-data:
